@@ -1,0 +1,1 @@
+Tech stach: NPM, Vite, React, Express, TypeScript, Node, Stripe
