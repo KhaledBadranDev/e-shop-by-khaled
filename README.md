@@ -12,6 +12,14 @@ to install npm in the client folder:<br/>
 - `cd client`
 - `npm install`
 
+to run the server:<br/>
+- `npm run dev`
+
+
+to install styled components:<br/>
+- `npm install --save styled-components`
+- `npm install --save-dev @types/styled-components`
+
 ---
 
 ## Server
