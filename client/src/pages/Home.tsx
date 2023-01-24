@@ -1,10 +1,20 @@
-import React from "react";
+import { FC } from "react";
+import AnnouncementBar from "../components/AnnouncementBar";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import SliderBanner from "../components/SliderBanner";
+import Categories from "../components/Categories";
+import Newsletter from "../components/Newsletter";
+import Products from "../components/Products";
 
-const Home = () => {
+const Home: FC = () => {
     return (
         <div>
-            <Navbar />
+            <SliderBanner />
+            <Categories />
+            <Products />
+            <Newsletter />
+            <Footer />
         </div>
     );
 };
