@@ -20,6 +20,9 @@ to install styled components:<br/>
 - `npm install --save styled-components`
 - `npm install --save-dev @types/styled-components`
 
+to install react icons:<br/>
+- `npm install react-icons --save`
+- Reference: https://react-icons.github.io/react-icons
 ---
 
 ## Server
