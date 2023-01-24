@@ -1,1 +1,12 @@
 Tech stach: styled components, NPM, Vite, React, Express, TypeScript, Node, Stripe
+
+TODO:
+- UI:
+    - Fix Responsiveness:
+        - Banners
+        - Navbar 
+    - cart in navbar should go a bit lower
+    - Should I Fetch banners from a Could?
+    - Footer
+
+- Server:
