@@ -1,1 +1,5 @@
 node_modules
+
+
+# ignore environment keys and constants
+.env
