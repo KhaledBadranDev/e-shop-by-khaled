@@ -3,3 +3,6 @@ node_modules
 
 # ignore environment keys and constants
 .env
+
+# ignore the compiled ts to js files
+dist
