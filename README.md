@@ -36,11 +36,13 @@ useful video2: https://www.youtube.com/watch?v=H91aqUHn8sE<br/>
 to create a package.json file:<br/>
 
 -   `npm init`
+-   `npm i --save-dev @types/node`
 -   then answer few interactive terminal questions
 
 to install express:<br/>
 
 -   `npm install express`
+-   `npm i --save-dev @types/express`
 -   then create an index.ts file
 
 to install dotenv for environment secret keys:<br/>
@@ -68,7 +70,6 @@ to install cors middleware to avoid having cors bugs:<br />
 -   `npm install --save-dev @types/jsonwebtoken`
 
 to install the TypeScript compiler:<br/>
-
 -   `npm install typescript --save-dev`
 
 to create the tsconfig.json file:<br/>
@@ -89,10 +90,6 @@ to create the tsconfig.json file:<br/>
 }
 ```
 
-to avoid having declaration bugs for importing express:<br/>
-
--   `npm i --save-dev @types/express`
--   `npm i --save-dev @types/node`
 
 to compile the index.ts to index.js file:<br/>
 

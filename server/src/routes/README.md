@@ -1,3 +1,3 @@
 # Routes
 
-The Routes here are for the API.
+The Routes here are for the API ENDPOINTS.
