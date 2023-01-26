@@ -18,7 +18,7 @@ dotenv_1.default.config(); // initiate environmental keys and constants
 const connectToMongoDb = async () => {
     try {
         mongoose_1.default.set("strictQuery", true);
-        const db = await mongoose_1.default.connect(process.env.MONGODB_CONNECTION_STRING);
+        await mongoose_1.default.connect(process.env.MONGODB_CONNECTION_STRING);
         console.log("successfully connected to db.");
     }
     catch (error) {
