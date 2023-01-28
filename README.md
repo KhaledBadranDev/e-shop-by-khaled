@@ -26,6 +26,11 @@ to install react icons:<br/>
 -   `npm install react-icons --save`
 -   Reference: https://react-icons.github.io/react-icons
 
+to install react-stripe-checkout:<br/>
+
+- `npm install react-stripe-checkout`
+
+
 ---
 
 ## Server
@@ -47,7 +52,6 @@ to install express:<br/>
 
 to install dotenv for environment secret keys:<br/>
 
--
 -   `npm install dotenv`
 -   then create an .env file
 
@@ -69,8 +73,13 @@ to install cors middleware to avoid having cors bugs:<br />
 -   `npm install jsonwebtoken`
 -   `npm install --save-dev @types/jsonwebtoken`
 
+to install stripe payment gateway:<br />
+-   `npm install --save stripe`
+-   `npm install --save-dev @types/jsonwebtoken`
+
 to install the TypeScript compiler:<br/>
 -   `npm install typescript --save-dev`
+- `npm install --save-dev @types/stripe`
 
 to create the tsconfig.json file:<br/>
 
