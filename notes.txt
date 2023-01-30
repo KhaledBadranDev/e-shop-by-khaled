@@ -11,7 +11,3 @@ TODO:
 
 - Server:
     - api end points
-        - get all ysers : add query limit and sort
-        - get all product: add query limit, category and sort
-        - get user stats is not working
-        - get orders revenue is not working 
