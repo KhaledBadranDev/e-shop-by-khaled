@@ -13,7 +13,6 @@ to install npm in the client folder:<br/>
 -   `npm install`
 
 to run the server:<br/>
-
 -   `npm run dev`
 
 to install styled components:<br/>
@@ -25,11 +24,18 @@ to install react icons:<br/>
 
 -   `npm install react-icons --save`
 -   Reference: https://react-icons.github.io/react-icons
-
+ 
 to install react-stripe-checkout:<br/>
-
 - `npm install react-stripe-checkout`
+- `npm install @types/stripe-checkout`
+- `npm install --save @types/stripe-prop-types`
+- `npm install --save prop-types`
 
+to install react router dom:<br/>
+- `npm install react-router-dom`
+
+to install axios to fetch data from database through the back-end:
+-`npm install axios`
 
 ---
 
