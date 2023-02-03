@@ -1,6 +1,6 @@
 -   NodeJs and NPM have to be installed globally before getting started.
 
-## Client
+# Client
 
 to init vite for react and typescript inside the client folder:<br/>
 
@@ -13,6 +13,7 @@ to install npm in the client folder:<br/>
 -   `npm install`
 
 to run the server:<br/>
+
 -   `npm run dev`
 
 to install styled components:<br/>
@@ -24,22 +25,32 @@ to install react icons:<br/>
 
 -   `npm install react-icons --save`
 -   Reference: https://react-icons.github.io/react-icons
- 
+
 to install react-stripe-checkout:<br/>
-- `npm install react-stripe-checkout`
-- `npm install @types/stripe-checkout`
-- `npm install --save @types/stripe-prop-types`
-- `npm install --save prop-types`
+
+-   `npm install react-stripe-checkout`
+-   `npm install @types/stripe-checkout`
+-   `npm install --save @types/stripe-prop-types`
+-   `npm install --save prop-types`
 
 to install react router dom:<br/>
-- `npm install react-router-dom`
 
-to install axios to fetch data from database through the back-end:
--`npm install axios`
+-   `npm install react-router-dom`
+
+to install axios to fetch data from database through communicating with the back-end: -`npm install axios`
+
+to install redux: <br/>
+
+-   `npm install react-redux`
+-   `npm install @reduxjs/toolkit`
+
+<br/>
 
 ---
 
-## Server
+<br/>
+
+# Server
 
 useful video1: https://www.youtube.com/watch?v=qy8PxD3alWw<br/>
 useful video2: https://www.youtube.com/watch?v=H91aqUHn8sE<br/>
@@ -69,23 +80,32 @@ to install mongoose for MongoDB: <br/>
 -   Then create a project, add a user to database access, add ip address to network access and finally create a cluster/db and connect to the cluster/db.
 
 to install crypto-ts to hash users passwords:<br />
+
 -   `npm install crypto-ts`
 
 to install jsonwebtoken to secure the API:<br />
+
 -   `npm install jsonwebtoken`
 -   `npm install --save-dev @types/jsonwebtoken`
 
 to install cors middleware to avoid having cors bugs:<br />
+
 -   `npm install jsonwebtoken`
 -   `npm install --save-dev @types/jsonwebtoken`
 
+to install uuid to generate unique ids for stripe payments:<br />
+
+-   `npm install uuid`
+
 to install stripe payment gateway:<br />
+
 -   `npm install --save stripe`
 -   `npm install --save-dev @types/jsonwebtoken`
 
 to install the TypeScript compiler:<br/>
+
 -   `npm install typescript --save-dev`
-- `npm install --save-dev @types/stripe`
+-   `npm install --save-dev @types/stripe`
 
 to create the tsconfig.json file:<br/>
 
@@ -104,7 +124,6 @@ to create the tsconfig.json file:<br/>
     "include": ["src/**/*"],
 }
 ```
-
 
 to compile the index.ts to index.js file:<br/>
 
