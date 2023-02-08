@@ -1,13 +1,12 @@
 # Author: Khaled Badran
 
-
 -   NodeJs and NPM have to be installed globally before getting started.
 
-- The main 3 folders are:
+-   The main 3 folders are:
+
 1. admin
 2. client
 3. server
-
 
 <br/>
 
@@ -15,12 +14,11 @@
 
 <br/>
 
-
 # Client
 
 to init vite for react and typescript inside the client folder:<br/>
 
-- syntax: `npm create vite@latest {directoryName}` 
+-   syntax: `npm create vite@latest {directoryName}`
 -   `npm create vite@latest client`
 -   choose react then choose TypeScript
 
@@ -54,15 +52,14 @@ to install react router dom:<br/>
 
 -   `npm install react-router-dom`
 
-to install axios to fetch data from database through communicating with the back-end: <br/> 
-- `npm install axios`
+to install axios to fetch data from database through communicating with the back-end: <br/>
+
+-   `npm install axios`
 
 to install redux: <br/>
 
 -   `npm install react-redux`
 -   `npm install @reduxjs/toolkit`
-
-
 
 <br/>
 
@@ -70,12 +67,11 @@ to install redux: <br/>
 
 <br/>
 
-
 # Admin
 
 to init vite for react and typescript inside the admin folder:<br/>
 
-- syntax: `npm create vite@latest {directoryName}` 
+-   syntax: `npm create vite@latest {directoryName}`
 -   `npm create vite@latest admin`
 -   choose react then choose TypeScript
 
@@ -88,8 +84,30 @@ to run the hosting server:<br/>
 
 -   `npm run dev`
 
+to install material icons and core:<br/>
 
+-   `npm install @material-ui/icons --force`
+-   `npm install @material-ui/core --force`
+-   `npm install @emotion/styled`
+-   `npm install @mui/icons-material`
 
+to install recharts:<br/>
+
+-   `npm install recharts`
+
+to install styled components:<br/>
+
+-   `npm install --save styled-components`
+-   `npm install --save-dev @types/styled-components`
+
+to install react router dom:<br/>
+
+-   `npm install react-router-dom`
+
+for rendering neat tables: <br/>
+
+-   `npm install @mui/x-data-grid`
+-   docs: https://mui.com/material-ui/react-table/
 
 <br/>
 
