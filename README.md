@@ -1,9 +1,26 @@
+# Author: Khaled Badran
+
+
 -   NodeJs and NPM have to be installed globally before getting started.
+
+- The main 3 folders are:
+1. admin
+2. client
+3. server
+
+
+<br/>
+
+---
+
+<br/>
+
 
 # Client
 
 to init vite for react and typescript inside the client folder:<br/>
 
+- syntax: `npm create vite@latest {directoryName}` 
 -   `npm create vite@latest client`
 -   choose react then choose TypeScript
 
@@ -12,7 +29,7 @@ to install npm in the client folder:<br/>
 -   `cd client`
 -   `npm install`
 
-to run the server:<br/>
+to run the hosting server:<br/>
 
 -   `npm run dev`
 
@@ -37,12 +54,42 @@ to install react router dom:<br/>
 
 -   `npm install react-router-dom`
 
-to install axios to fetch data from database through communicating with the back-end: -`npm install axios`
+to install axios to fetch data from database through communicating with the back-end: <br/> 
+- `npm install axios`
 
 to install redux: <br/>
 
 -   `npm install react-redux`
 -   `npm install @reduxjs/toolkit`
+
+
+
+<br/>
+
+---
+
+<br/>
+
+
+# Admin
+
+to init vite for react and typescript inside the admin folder:<br/>
+
+- syntax: `npm create vite@latest {directoryName}` 
+-   `npm create vite@latest admin`
+-   choose react then choose TypeScript
+
+to install npm in the admin folder:<br/>
+
+-   `cd admin`
+-   `npm install`
+
+to run the hosting server:<br/>
+
+-   `npm run dev`
+
+
+
 
 <br/>
 
