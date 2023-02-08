@@ -11,3 +11,8 @@ TODO:
 
 - Server:
     - api end points
+
+
+- Admin::
+    - npm install data table matrialm ui icon icon
+    - npm install chart library
