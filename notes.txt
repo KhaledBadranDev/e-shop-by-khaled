@@ -8,11 +8,21 @@ TODO:
     - cart in navbar should go a bit lower
     - Should I Fetch banners from a Could?
     - Footer
+    - token from storage
+    - 
 
 - Server:
-    - api end points
+    - sort and limits
+    - MVC
+    - 
 
 
-- Admin::
-    - npm install data table matrialm ui icon icon
-    - npm install chart library
+- Admin:
+    - token from storage
+    - REDUX CRUD
+    - Organize Dashboard and active link
+
+
+- google cloud storage
+- add accurate info, images, products, etc to database 
+- improve ts data types and their structure
