@@ -60,6 +60,7 @@ to install redux: <br/>
 
 -   `npm install react-redux`
 -   `npm install @reduxjs/toolkit`
+-   `npm install redux-persist`
 
 <br/>
 
@@ -108,6 +109,16 @@ for rendering neat tables: <br/>
 
 -   `npm install @mui/x-data-grid`
 -   docs: https://mui.com/material-ui/react-table/
+
+to install axios to fetch data from database through communicating with the back-end: <br/>
+
+-   `npm install axios`
+
+to install redux: <br/>
+
+-   `npm install react-redux`
+-   `npm install @reduxjs/toolkit`
+-   `npm install redux-persist`
 
 <br/>
 
