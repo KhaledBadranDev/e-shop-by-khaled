@@ -120,6 +120,13 @@ to install redux: <br/>
 -   `npm install @reduxjs/toolkit`
 -   `npm install redux-persist`
 
+to be able to install firebase storage:<br/>
+
+-   `npm install firebase`
+-   in addition to this you would need to create a firebase project and set up the cloud storage.
+-   https://firebase.google.com/
+-   docs: https://firebase.google.com/docs/storage/web/start#web-version-9
+
 <br/>
 
 ---
