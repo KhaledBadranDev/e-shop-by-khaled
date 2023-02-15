@@ -33,7 +33,7 @@ app.use("/api/auth", Auth_1.router);
 app.use("/api/products", Products_1.router);
 app.use("/api/carts", Carts_1.router);
 app.use("/api/orders", Orders_1.router);
-app.use("/api/checkout", Stripe_1.router);
+app.use("/api/stripe", Stripe_1.router);
 app.listen(process.env.PORT, () => {
     console.log("successfully listening on port.");
 });
