@@ -103,22 +103,10 @@ const data: ISidebarMenuSectionType[] = [
         ],
     },
     {
-        title: "Staff",
+        title: "Account",
         menuItems: [
             {
-                name: "Manage",
-                path: "/",
-                isActive:false,
-                icon: WorkOutline,
-            },
-            {
-                name: "Analytics",
-                path: "/",
-                isActive:false,
-                icon: Timeline,
-            },
-            {
-                name: "Reports",
+                name: "Sign Out",
                 path: "/",
                 isActive:false,
                 icon: Report,
