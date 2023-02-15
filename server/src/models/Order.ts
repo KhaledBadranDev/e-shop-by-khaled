@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 
 interface IOrderSchemaType extends mongoose.Schema {
     products: any;
-    quantity: number;
+    price: number;
     status: string;
     userId: string;
     address: string;
@@ -27,7 +27,7 @@ const OrderSchema = new mongoose.Schema<IOrderSchemaType>(
                 },
             },
         ],
-        quantity: {
+        price: {
             type: Number,
             required: true,
         },
@@ -52,3 +52,4 @@ const OrderSchema = new mongoose.Schema<IOrderSchemaType>(
 
 const Order = mongoose.model<IOrderSchemaType>("Order", OrderSchema);
 export default Order; // export the OrderSchema model as Order
+export { IOrderSchemaType };
