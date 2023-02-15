@@ -7,7 +7,7 @@ const AUTH_USER_TOKEN =
 const AUTH_ADMIN_TOKEN =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDJiMzg2NWIyNWZmNzhkNGZiMTgyMCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTEwNzc1MywiZXhwIjoxNjc1NzEyNTUzfQ.bgJIsdInFNryuC2JvH1HC8YHq3m4AJRft3IZZuMRnms";
 
-const axiosPublicRequest = (relativePath: string, methodType: string) => {
+const axiosPublicRequest = (relativePath: string, methodType: string, reqBody: any = null) => {
     return new Promise(
         async (
             resolve: (value?: string) => void,
@@ -18,14 +18,16 @@ const axiosPublicRequest = (relativePath: string, methodType: string) => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 };
+
                 const reqOptions = {
                     url: `${BASE_URL}${relativePath}`,
                     method: methodType,
                     headers: headersList,
+                    data: reqBody
                 };
 
-                const fetchedFromDB: any = await axios.request(reqOptions);
-                resolve(fetchedFromDB.data);
+                const apiResponse: any = await axios.request(reqOptions);
+                resolve(apiResponse.data);
             } catch (error) {
                 reject(error);
             }
@@ -52,8 +54,8 @@ const axiosAuthUserRequest = (relativePath: string, methodType: string) => {
                     headers: headersList,
                 };
 
-                const fetchedFromDB: any = await axios.request(reqOptions);
-                resolve(fetchedFromDB.data);
+                const apiResponse: any = await axios.request(reqOptions);
+                resolve(apiResponse.data);
             } catch (error) {
                 reject(error);
             }
@@ -79,8 +81,8 @@ const axiosAuthAdminRequest = (relativePath: string, methodType: string) => {
                     method: methodType,
                     headers: headersList,
                 };
-                const fetchedFromDB: any = await axios.request(reqOptions);
-                resolve(fetchedFromDB.data);
+                const apiResponse: any = await axios.request(reqOptions);
+                resolve(apiResponse.data);
             } catch (error) {
                 reject(error);
             }
