@@ -1,9 +1,10 @@
 import { FC } from "react";
-import styled from "styled-components";
-import { Product } from "../data/popularProducts";
+import { Link } from "react-router-dom";
 import { FaSearch, FaShoppingBasket, FaRegHeart } from "react-icons/fa";
+import styled from "styled-components";
+import { IProductTypes } from "../data/popularProducts";
 
-const ProductCard: FC<Product> = (productElement) => {
+const ProductCard: FC<IProductTypes> = (productElement) => {
     // productElement is an element from the arr that has all the popular products data
     return (
         <Container>
@@ -14,7 +15,9 @@ const ProductCard: FC<Product> = (productElement) => {
                     <FaShoppingBasket />
                 </Icon>
                 <Icon>
-                    <FaSearch />
+                    <Link to={`/products/${productElement["_id"]}`}>
+                        <FaSearch />
+                    </Link>
                 </Icon>
                 <Icon>
                     <FaRegHeart />
