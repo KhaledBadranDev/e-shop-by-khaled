@@ -33,7 +33,7 @@ export default Topbar;
 const Container = styled.div`
     width: 100%;
     height: 50px;
-    background-color: #09152c;
+    background-color: #0A1E33;
     position: sticky;
     top: 0;
     z-index: 10;
