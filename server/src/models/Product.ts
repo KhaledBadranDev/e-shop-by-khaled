@@ -9,9 +9,10 @@ interface IProductSchemaType extends mongoose.Schema {
     description: string;
     imgReference: string;
     categories: any;
-    size: string;
-    bgColor: string;
+    sizes: any;
+    colors: any;
     price: number;
+    isInStock: boolean;
 }
 
 const ProductSchema = new mongoose.Schema<IProductSchemaType>(
@@ -20,8 +21,8 @@ const ProductSchema = new mongoose.Schema<IProductSchemaType>(
             type: String,
             required: true,
         },
-        bgColor: {
-            type: String,
+        colors: {
+            type: Array,
         },
         title: {
             type: String,
@@ -35,13 +36,17 @@ const ProductSchema = new mongoose.Schema<IProductSchemaType>(
         categories: {
             type: Array,
         },
-        size: {
-            type: String,
+        sizes: {
+            type: Array,
         },
         price: {
             type: Number,
             required: true,
         },
+        isInStock: {
+            type: Boolean,
+            default: true,
+        }
     },
     // this would create 2 fields automatically,
     // 1st is createdAt timestamp
@@ -51,3 +56,4 @@ const ProductSchema = new mongoose.Schema<IProductSchemaType>(
 
 const Product = mongoose.model<IProductSchemaType>("Product", ProductSchema);
 export default Product; // export the ProductSchema model as Product
+export { IProductSchemaType };
