@@ -2,7 +2,7 @@ import { FC } from "react";
 import { AiFillYoutube, AiOutlineGithub } from "react-icons/ai";
 import { FaBloggerB } from "react-icons/fa";
 import styled from "styled-components";
-import { mobile } from "../util/styleResponsive";
+import { mobile } from "../utils/styleResponsive";
 
 const Footer: FC = () => {
     return (
