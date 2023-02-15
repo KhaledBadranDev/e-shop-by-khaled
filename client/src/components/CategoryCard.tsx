@@ -1,18 +1,20 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Category } from "../data/categories";
-import { mobile } from "../util/styleResponsive";
-
+import { mobile } from "../utils/styleResponsive";
 
 const CategoryCard: FC<Category> = (categoryElement) => {
     // categoryElement is an element from the arr that has all the catagories data
- 
+
     return (
         <Container>
             <Image src={categoryElement.imgReference} />
             <Info>
                 <Title>{categoryElement.title}</Title>
-                <Button>SHOP NOW</Button>
+                <Link to={`/categories/${categoryElement.categoryName}`}>
+                    <Button>SHOP NOW</Button>
+                </Link>
             </Info>
         </Container>
     );
