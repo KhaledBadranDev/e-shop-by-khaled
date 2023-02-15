@@ -1,6 +1,4 @@
-import { LineStyle, Timeline, TrendingUp } from "@material-ui/icons";
-import React from "react";
-import { FC, useCallback } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -10,22 +8,70 @@ import {
 
 interface IPropsType {
     sidebarMenuSection: ISidebarMenuSectionType;
-    setActiveLink: React.Dispatch<React.SetStateAction<string>>;
+    setActiveLinks: React.Dispatch<React.SetStateAction<string[]>>;
+    activeLinks: string[];
 }
 
 const SidebarMenu: FC<IPropsType> = (props) => {
-    const handleActiveLink = useCallback((itemName: string) => {
-        props.sidebarMenuSection.menuItems.forEach(
-            (item: ISidebarMenuItemType) => {
-                if (itemName === item.name) {
-                    item.isActive = true;
-                    props.setActiveLink(itemName);
-                } else {
-                    item.isActive = false;
-                }
-            }
+    const handleActiveLink = useCallback(
+        (itemName: string, isSubItem: boolean, rootItemName: string = "") => {
+            const tmp: string[] = isSubItem ? [rootItemName] : [];
+
+            tmp.push(itemName);
+            props.setActiveLinks(tmp);
+        },
+        [props.activeLinks]
+    );
+
+    const renderSidebarMenu = (
+        item: ISidebarMenuItemType,
+        isSubItem: boolean = false,
+        rootItemName: string = ""
+    ) => {
+        return (
+            <SidebarListItemWrapper>
+                <Link
+                    to={item.path}
+                    key={item.name}
+                    style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                    }}
+                    onClick={() =>
+                        handleActiveLink(item.name, isSubItem, rootItemName)
+                    }
+                >
+                    <SidebarListItem
+                        style={{
+                            backgroundColor: item.isActive
+                                ? "#122C44"
+                                : "inherit",
+                        }}
+                    >
+                        <SidebarIcon>
+                            {React.createElement(item.icon)}
+                        </SidebarIcon>
+                        {item.name}
+                    </SidebarListItem>
+                </Link>
+            </SidebarListItemWrapper>
         );
-    }, [props.setActiveLink]);
+    };
+
+    const renderSidebarSubMenu = (
+        subMenuItems: ISidebarMenuItemType[],
+        rootItemName
+    ) => {
+        return (
+            <>
+                {subMenuItems.map((item: ISidebarMenuItemType) => (
+                    <SidebarSubListItemWrapper key={item.name}>
+                        {renderSidebarMenu(item, true, rootItemName)}
+                    </SidebarSubListItemWrapper>
+                ))}
+            </>
+        );
+    };
 
     return (
         <Wrapper>
@@ -33,28 +79,14 @@ const SidebarMenu: FC<IPropsType> = (props) => {
             <SidebarList>
                 {props.sidebarMenuSection.menuItems.map(
                     (item: ISidebarMenuItemType) => (
-                        <Link
-                            to={item.path}
-                            key={item.name}
-                            style={{
-                                textDecoration: "none",
-                                color: "inherit",
-                            }}
-                            onClick={() => handleActiveLink(item.name)}
-                        >
-                            <SidebarListItem
-                                style={{
-                                    backgroundColor: item.isActive
-                                        ? "#F0F0FF"
-                                        : "inherit",
-                                }}
-                            >
-                                <SidebarIcon>
-                                    {React.createElement(item.icon)}
-                                </SidebarIcon>
-                                {item.name}
-                            </SidebarListItem>
-                        </Link>
+                        <>
+                            {renderSidebarMenu(item)}
+                            {item.subMenuItems &&
+                                renderSidebarSubMenu(
+                                    item.subMenuItems,
+                                    item.name
+                                )}
+                        </>
                     )
                 )}
             </SidebarList>
@@ -69,17 +101,22 @@ const Wrapper = styled.div`
 `;
 
 const SidebarTitle = styled.h3`
-    font-size: 13px;
-    color: rgb(187, 186, 186);
+    font-size: 14px;
+    font-weight: bold;
+
+    color: #669df6;
 `;
 
 const SidebarList = styled.ul`
     list-style: none;
-    padding: 5px;
+    color: #cfd4d8;
+    padding: 2px;
+    margin-top: 5px;
 `;
 
 const SidebarListItem = styled.li`
-    padding: 3px;
+    padding: 2px;
+    margin: 5px 0px 1px 5px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -87,11 +124,35 @@ const SidebarListItem = styled.li`
 
     &.active,
     &:hover {
-        background-color: rgb(240, 240, 255);
+        background-color: #122c44;
+    }
+`;
+
+const SidebarSubListItemWrapper = styled.div`
+    margin: 0px 0px 0px 20px;
+    padding: 1px;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    &.active,
+    &:hover {
+        background-color: #122c44;
+    }
+`;
+const SidebarListItemWrapper = styled.div`
+    border-radius: 10px;
+    padding: 1px;
+
+    cursor: pointer;
+
+    &.active,
+    &:hover {
+        background-color: #122c44;
     }
 `;
 
 const SidebarIcon = styled.div`
     margin-right: 5px;
-    font-size: 20px !important;
+    font-size: 10px;
 `;

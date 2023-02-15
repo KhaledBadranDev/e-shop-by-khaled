@@ -4,7 +4,8 @@ import SidebarMenu from "./SidebarMenu";
 import data, { ISidebarMenuSectionType } from "../data/sidebarMenuData";
 
 const Sidebar: FC = () => {
-    const [activeLink, setActiveLink] = useState<string>("Home");
+    const [activeLinks, setActiveLinks] = useState<string[]>(["Home"]);
+    console.log("activeLinks", activeLinks);
 
     return (
         <Container>
@@ -13,7 +14,8 @@ const Sidebar: FC = () => {
                     <SidebarMenu
                         key={section.title}
                         sidebarMenuSection={section}
-                        setActiveLink={setActiveLink}
+                        activeLinks={activeLinks}
+                        setActiveLinks={setActiveLinks}
                     />
                 ))}
             </Wrapper>
@@ -21,8 +23,16 @@ const Sidebar: FC = () => {
             <>
                 {data.forEach((sectionData) => {
                     sectionData.menuItems.forEach((menuItem) => {
-                        if (menuItem.name !== activeLink)
+                        if (!activeLinks.includes(menuItem.name))
                             menuItem.isActive = false;
+                        else menuItem.isActive = true;
+                        if (menuItem.subMenuItems) {
+                            menuItem.subMenuItems.forEach((subMenuItem) => {
+                                if (!activeLinks.includes(subMenuItem.name))
+                                    subMenuItem.isActive = false;
+                                else subMenuItem.isActive = true;
+                            });
+                        }
                     });
                 })}
             </>
@@ -35,7 +45,7 @@ export default Sidebar;
 const Container = styled.div`
     flex: 1;
     height: calc(100vh - 50px);
-    background-color: #0A1E33;
+    background-color: #0a1e33;
     position: sticky;
     top: 50px;
     z-index: 10;
@@ -43,5 +53,4 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
     padding: 20px;
-    color: #555;
 `;
