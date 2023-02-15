@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import { mobile } from "../util/styleResponsive";
+import { mobile } from "../utils/styleResponsive";
 import banners, { Banner } from "../data/banners";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 
