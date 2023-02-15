@@ -35,7 +35,7 @@ export default Sidebar;
 const Container = styled.div`
     flex: 1;
     height: calc(100vh - 50px);
-    background-color: #09152c;
+    background-color: #0A1E33;
     position: sticky;
     top: 50px;
     z-index: 10;
