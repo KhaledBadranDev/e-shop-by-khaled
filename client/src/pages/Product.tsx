@@ -1,55 +1,158 @@
-import { FC } from "react";
+import { FC, useEffect, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import styled from "styled-components";
 import Newsletter from "../components/Newsletter";
-import { mobile } from "../util/styleResponsive";
+import { mobile } from "../utils/styleResponsive";
+import { IProductTypes } from "../data/popularProducts";
+import { axiosPublicRequest } from "../api/requestMethods";
+import { useDispatch } from "react-redux";
+import { addProductToCart, IReduxCartActionPayloadTypes } from "../redux/cart";
 
-const Product:FC = () => {
+const Product: FC = () => {
+    const [selectedProduct, setSelectedProduct] = useState<
+        IProductTypes | undefined
+    >(undefined);
+    const [itemQuantity, setItemQuantity] = useState<number>(1);
+    const [itemColor, setItemColor] = useState<string>("");
+    const [itemSize, setItemSize] = useState<string>("");
+    const cartStateDispatch = useDispatch();
+
+    // the most relevant field here is the pathname. Hence the Pick<Location, 'pathname'>
+    const productLocation: Pick<Location, "pathname"> = useLocation();
+    // productLocation looks somehow as follows:
+    // {hash: "";
+    // key: "007u9gsu";
+    // pathname: "/products/ui21jkij2ij";
+    // search: "";
+    // state: null;}
+    // the second element of the pathname field is important here
+    const productId: string = productLocation.pathname.split("/")[2]; //.../.../..hereIsImportant..
+
+    // using arrow functions or binding in tSX is a bad practice as it hurts the performance.
+    // because the function is recreated on each render.
+    // to solve this issue, use the callback with the useCallback() hook,
+    // and assign the dependencies.
+    const handelSetItemQuantity = useCallback(
+        (type: string) => {
+            if (type === "plus") {
+                setItemQuantity(itemQuantity + 1);
+            } else if (type === "minus" && itemQuantity > 1) {
+                setItemQuantity(itemQuantity - 1);
+            }
+        },
+        [itemQuantity]
+    );
+    const handelSetItemColor = useCallback(
+        (color: string) => {
+            setItemColor(color);
+        },
+        [itemColor]
+    );
+    const handelSetItemSize = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setItemSize(event.target.value);
+        },
+        [itemSize]
+    );
+
+    const handelAddToCart = useCallback(() => {
+        if (selectedProduct) {
+            const productTobeAddedToCart: IReduxCartActionPayloadTypes = {
+                product: { ...selectedProduct },
+                productQuantity: itemQuantity,
+                color: itemColor,
+                size: itemSize,
+            };
+            cartStateDispatch(addProductToCart(productTobeAddedToCart));
+        }
+    }, [itemQuantity, itemColor, itemSize]);
+
+    // to fetch data from database when the category change and on first render
+    useEffect(() => {
+        // fetch data from database
+        const getProduct = async () => {
+            try {
+                let relativePath = `/products/${productId}`;
+                const method = "GET";
+                const productFromDB: any = await axiosPublicRequest(
+                    relativePath,
+                    method
+                );
+                setSelectedProduct(productFromDB);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getProduct();
+    }, [productId]);
+
     return (
         <Container>
-            <Wrapper>
-                <ImgContainer>
-                    <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
-                </ImgContainer>
-                <InfoContainer>
-                    <Title>Denim Jumpsuit</Title>
-                    <Desc>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Donec venenatis, dolor in finibus malesuada, lectus
-                        ipsum porta nunc, at iaculis arcu nisi sed mauris. Nulla
-                        fermentum vestibulum ex, eget tristique tortor pretium
-                        ut. Curabitur elit justo, consequat id condimentum ac,
-                        volutpat ornare.
-                    </Desc>
-                    <Price>$ 20</Price>
-                    <FilterContainer>
-                        <Filter>
-                            <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="black" />
-                            <FilterColor color="darkblue" />
-                            <FilterColor color="gray" />
-                        </Filter>
-                        <Filter>
-                            <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
-                                <FilterSizeOption>XS</FilterSizeOption>
-                                <FilterSizeOption>S</FilterSizeOption>
-                                <FilterSizeOption>M</FilterSizeOption>
-                                <FilterSizeOption>L</FilterSizeOption>
-                                <FilterSizeOption>XL</FilterSizeOption>
-                            </FilterSize>
-                        </Filter>
-                    </FilterContainer>
-                    <AddContainer>
-                        <AmountContainer>
-                            <FaPlusCircle />
-                            <Amount>1</Amount>
-                            <FaMinusCircle />
-                        </AmountContainer>
-                        <Button>ADD TO CART</Button>
-                    </AddContainer>
-                </InfoContainer>
-            </Wrapper>
+            {selectedProduct !== undefined && (
+                <Wrapper>
+                    <ImgContainer>
+                        <Image src={selectedProduct.imgReference} />
+                    </ImgContainer>
+                    <InfoContainer>
+                        <Title>{selectedProduct.title}</Title>
+                        <Description>{selectedProduct.description}</Description>
+                        <Price>${selectedProduct.price}</Price>
+                        <FilterContainer>
+                            <Filter>
+                                <FilterTitle>Colors</FilterTitle>
+                                {/* create a color option for every available color */}
+
+                                {selectedProduct.colors.map(
+                                    (eachColor: string) => (
+                                        <FilterColor
+                                            color={eachColor}
+                                            key={eachColor}
+                                            onClick={() =>
+                                                handelSetItemColor(eachColor)
+                                            }
+                                        />
+                                    )
+                                )}
+                            </Filter>
+                            <Filter>
+                                <FilterTitle>Size</FilterTitle>
+                                <FilterSize onChange={handelSetItemSize}>
+                                    {/* create a list option for every available size */}
+                                    {selectedProduct.sizes.map(
+                                        (eachSize: string) => (
+                                            <FilterSizeOption
+                                                key={eachSize}
+                                                value={eachSize}
+                                            >
+                                                {eachSize.toUpperCase()}
+                                            </FilterSizeOption>
+                                        )
+                                    )}
+                                </FilterSize>
+                            </Filter>
+                        </FilterContainer>
+                        <AddContainer>
+                            <AmountContainer>
+                                <FaPlusCircle
+                                    onClick={() =>
+                                        handelSetItemQuantity("plus")
+                                    }
+                                />
+                                <Amount>{itemQuantity}</Amount>
+                                <FaMinusCircle
+                                    onClick={() =>
+                                        handelSetItemQuantity("minus")
+                                    }
+                                />
+                            </AmountContainer>
+                            <Button onClick={handelAddToCart}>
+                                ADD TO CART
+                            </Button>
+                        </AddContainer>
+                    </InfoContainer>
+                </Wrapper>
+            )}
             <Newsletter />
         </Container>
     );
@@ -89,7 +192,7 @@ const Title = styled.h1`
     font-weight: 200;
 `;
 
-const Desc = styled.p`
+const Description = styled.p`
     margin: 20px 0px;
 `;
 
@@ -120,6 +223,10 @@ const FilterColor = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    border: 1px solid lightgray;
+    box-shadow: 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-width: 1.7px;
     background-color: ${(props) => props.color};
     margin: 0px 5px;
     cursor: pointer;
