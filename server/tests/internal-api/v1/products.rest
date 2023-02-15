@@ -1,0 +1,5 @@
+# get all products
+GET /api/products HTTP/1.1
+Accept: application/json
+Host: localhost:5000
+###

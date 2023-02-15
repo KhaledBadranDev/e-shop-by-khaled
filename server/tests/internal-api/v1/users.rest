@@ -1,0 +1,14 @@
+
+# GET a user by id
+GET /api/users/63d16bc35e4d273d55316d14 HTTP/1.1
+Accept: application/json
+Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDJiMzg2NWIyNWZmNzhkNGZiMTgyMCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NDc1MzA2OSwiZXhwIjoxNjc1MzU3ODY5fQ.Oe0wTgnjD6Eu3dDwRyCY-vACLibiQtEhI3DkHWzsbDU
+Host: localhost:5000
+###
+
+# get all users
+GET /api/users/63d16bc35e4d273d55316d14 HTTP/1.1
+Accept: application/json
+Token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDJiMzg2NWIyNWZmNzhkNGZiMTgyMCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NDc1MzA2OSwiZXhwIjoxNjc1MzU3ODY5fQ.Oe0wTgnjD6Eu3dDwRyCY-vACLibiQtEhI3DkHWzsbDU
+Host: localhost:5000
+###
