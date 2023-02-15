@@ -32,7 +32,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/products", productsRoute);
 app.use("/api/carts", cartsRoute);
 app.use("/api/orders", ordersRoute);
-app.use("/api/checkout", stripeRoute);
+app.use("/api/stripe", stripeRoute);
 
 app.listen(process.env.PORT, () => {
     console.log("successfully listening on port.");
