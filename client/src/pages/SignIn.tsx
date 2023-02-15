@@ -1,17 +1,74 @@
-import { FC } from "react";
+import { FC, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { mobile } from "../util/styleResponsive";
+import reduxSignInAsyncAPICallHelper from "../api/reduxAPIRequests";
+import { IReduxRootStateType } from "../redux/store";
+import { IReduxUserStateType } from "../redux/user";
+import { mobile } from "../utils/styleResponsive";
 
 const SignIn: FC = () => {
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const userReduxStateDispatch = useDispatch(); // "useDispatch"  to change the value of the global states
+    // to access the cart global state using redux
+    const userRedux: IReduxUserStateType = useSelector<
+        IReduxRootStateType,
+        IReduxUserStateType
+    >((state: any) => state.user);
+
+    // using arrow functions or binding in tSX is a bad practice as it hurts the performance.
+    // because the function is recreated on each render.
+    // to solve this issue, use the callback with the useCallback() hook,
+    // and assign the dependencies.
+    const handleSetUsername = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setEmail(event.target.value);
+        },
+        [email]
+    );
+
+    const handleSetPassword = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setPassword(event.target.value);
+        },
+        [password]
+    );
+
+    const handelSignIn = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            event.preventDefault();
+            reduxSignInAsyncAPICallHelper(userReduxStateDispatch, {
+                email,
+                password,
+            });
+        },
+        [email, password]
+    );
     return (
         <Container>
             <Wrapper>
                 <Title>SIGN IN</Title>
                 <Form>
-                    <Input placeholder="username" />
-                    <Input placeholder="password" />
-                    <Button>LOGIN</Button>
-                    <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
+                    <Input placeholder="email" onChange={handleSetUsername} />
+                    <Input
+                        placeholder="password"
+                        type="password"
+                        onChange={handleSetPassword}
+                    />
+                    <Button
+                        onClick={(event) => handelSignIn(event)}
+                        disabled={userRedux.isAsyncSigningIn}
+                    >
+                        Sign In
+                    </Button>
+
+                    {
+                        //  conditional rendering if there is any error
+                        userRedux.error.length > 0 && (
+                            <Error>{userRedux.error}</Error>
+                        )
+                    }
+                    <Link>FORGOT YOUR PASSWORD?</Link>
                     <Link>CREATE A NEW ACCOUNT</Link>
                 </Form>
             </Wrapper>
@@ -68,6 +125,14 @@ const Button = styled.button`
     color: white;
     cursor: pointer;
     margin-bottom: 10px;
+    &:disabled {
+        color: transparent;
+        cursor: not-allowed;
+    }
+`;
+
+const Error = styled.span`
+    color: red;
 `;
 
 const Link = styled.a`
