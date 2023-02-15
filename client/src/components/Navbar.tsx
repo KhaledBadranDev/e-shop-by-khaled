@@ -1,9 +1,20 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { mobile } from "../util/styleResponsive";
+import { mobile } from "../utils/styleResponsive";
 import { FaSearch, FaShoppingBasket } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { IReduxCartStateType } from "../redux/cart";
+import { IReduxRootStateType } from "../redux/store";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const Navbar: FC = () => {
+    // to access the cart global state using redux
+    const cart: IReduxCartStateType = useSelector<
+        IReduxRootStateType,
+        IReduxCartStateType
+    >((state: any) => state.cart);
+
+    console.log(cart);
     return (
         <Container>
             <Wrapper>
@@ -22,14 +33,32 @@ const Navbar: FC = () => {
                     </SearchContainer>
                 </SecondThird>
                 <LastThird>
-                    <MenuItem>Sign Up</MenuItem>
-                    <MenuItem>Sign In</MenuItem>
-                    <ShoppingBasket>
-                        <FaShoppingBasket
-                            style={{ color: "gray", fontSize: 24 }}
-                        />
-                        <ShoppingBasketBadge>3</ShoppingBasketBadge>
-                    </ShoppingBasket>
+                    <Link
+                        to="/signup"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <MenuItem>Sign Up</MenuItem>
+                    </Link>
+
+                    <Link
+                        to="/signin"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <MenuItem>Sign In</MenuItem>
+                    </Link>
+                    <Link
+                        to="/cart"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <ShoppingBasket>
+                            <FaShoppingBasket
+                                style={{ color: "gray", fontSize: 24 }}
+                            />
+                            <ShoppingBasketBadge>
+                                {cart["totalProductsQuantity"]}
+                            </ShoppingBasketBadge>
+                        </ShoppingBasket>
+                    </Link>
                 </LastThird>
             </Wrapper>
         </Container>
