@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { mobile } from "../util/styleResponsive";
+import { mobile } from "../utils/styleResponsive";
 
 const SignUp: FC = () => {
     return (
