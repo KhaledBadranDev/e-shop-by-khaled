@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express"; // Request and Response are interfaces from the express module
 
-// *LOCAL helper function
 // verify that the access token is valid 
 // If it is valid, add the successfully generated result object as a field to the response object 
 // so that we can access the API endpoints that requires a token 
@@ -19,7 +18,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
             (err: unknown, verifiedUserRes: any) => {
                 // that is a callback function as a parameter
                 // 403 Forbidden
-                if (err) res.status(403).json("Not Valid Access Token");
+                if (err) return res.status(403).json("Not Valid Access Token");
 
                 // create a new custom property to the request object
                 // and assign it to the success result of the callback method of jwt.verify()
@@ -31,7 +30,6 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
                 //      iat: 1674679003,
                 //      exp: 1675283803
                 //  }
-                console.log(req["verifiedUserRes"]);
                 // Call the next middleware or controller to continue executing the rest of the route
                 next();
             }
@@ -61,7 +59,7 @@ const verifyAuthorizationToken = (
             next();
         } else {
             // 403 Forbidden
-            res.status(403).json("Not Enough Permissions");
+            return res.status(403).json("Not Enough Permissions");
         }
     });
 };
@@ -76,9 +74,9 @@ const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
         } else {
             // send the error and the status code
             // 403 Forbidden
-            res.status(403).json("Not Enough Permissions");
+            return res.status(403).json("Not Enough Permissions");
         }
     });
 };
 
-export { verifyAuthorizationToken, verifyAdminToken };
+export {verifyToken, verifyAuthorizationToken, verifyAdminToken };
