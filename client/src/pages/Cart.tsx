@@ -1,16 +1,62 @@
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { FC } from "react";
 import styled from "styled-components";
-import Footer from "../components/Footer";
-import { mobile } from "../util/styleResponsive";
+import { mobile } from "../utils/styleResponsive";
+import { useSelector } from "react-redux";
+import { IReduxCartStateType, IReduxCartProductType } from "../redux/cart";
+import { IReduxRootStateType } from "../redux/store";
+import { Link } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import { axiosPublicRequest } from "../api/requestMethods";
+
+const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
 const Cart: FC = () => {
+    const cartRedux: IReduxCartStateType = useSelector<
+        IReduxRootStateType,
+        IReduxCartStateType
+    >((state: any) => state.cart);
+
+    const onTokenStripe = (token: any) => {
+        const test = async () => {
+            try {
+                // get all the important order details
+                // and send them as description a long with the payment details
+                const orderDetails = cartRedux.cartProducts.map(
+                    (cartProduct: IReduxCartProductType) => ({
+                        title: cartProduct.product.title,
+                        _id: cartProduct.product._id,
+                        productQuantity: cartProduct.productQuantity,
+                        color: cartProduct.color,
+                        size: cartProduct.size,
+                    })
+                );
+                // note: price has to be multiplied by 100 to convert from cents to dollars as the by default stripe uses cents
+                const relativePath = "/stripe/checkout";
+                const method = "POST";
+                const bodyContent = JSON.stringify({
+                    tokenId: token.id,
+                    price: cartRedux.totalPrice * 100,
+                    description: JSON.stringify(orderDetails),
+                });
+
+                await axiosPublicRequest(relativePath, method, bodyContent);
+                alert("Your order has been successfully received.");
+            } catch (error) {
+                alert("FAILED: you ordered couldn't be completed!\n" + error);
+            }
+        };
+        test();
+    };
+
     return (
         <Container>
             <Wrapper>
                 <Title>YOUR SHOPPING BASKET</Title>
                 <Top>
-                    <TopButton>CONTINUE SHOPPING</TopButton>
+                    <Link to="/">
+                        <TopButton>CONTINUE SHOPPING</TopButton>
+                    </Link>
                     <TopTexts>
                         <TopText>Shopping Bag(2)</TopText>
                         <TopText>Your Wishlist (0)</TopText>
@@ -19,63 +65,71 @@ const Cart: FC = () => {
                 </Top>
                 <Bottom>
                     <Info>
-                        <Product>
-                            <ProductDetail>
-                                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                                <Details>
-                                    <ProductName>
-                                        <b>Product:</b> JESSIE THUNDER SHOES
-                                    </ProductName>
-                                    <ProductId>
-                                        <b>ID:</b> 93813718293
-                                    </ProductId>
-                                    <ProductColor color="black" />
-                                    <ProductSize>
-                                        <b>Size:</b> 37.5
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <FaPlusCircle />
-                                    <ProductAmount>2</ProductAmount>
-                                    <FaMinusCircle />
-                                </ProductAmountContainer>
-                                <ProductPrice>$ 30</ProductPrice>
-                            </PriceDetail>
-                        </Product>
-                        <Hr />
-                        <Product>
-                            <ProductDetail>
-                                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
-                                <Details>
-                                    <ProductName>
-                                        <b>Product:</b> HAKURA T-SHIRT
-                                    </ProductName>
-                                    <ProductId>
-                                        <b>ID:</b> 93813718293
-                                    </ProductId>
-                                    <ProductColor color="gray" />
-                                    <ProductSize>
-                                        <b>Size:</b> M
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <FaPlusCircle />
-                                    <ProductAmount>1</ProductAmount>
-                                    <FaMinusCircle />
-                                </ProductAmountContainer>
-                                <ProductPrice>$ 20</ProductPrice>
-                            </PriceDetail>
-                        </Product>
+                        {cartRedux.cartProducts.map((reduxCartProduct) => (
+                            <Product key={reduxCartProduct.product._id}>
+                                <ProductDetail>
+                                    <Image
+                                        src={
+                                            reduxCartProduct.product
+                                                .imgReference
+                                        }
+                                    />
+                                    <Details>
+                                        <ProductName>
+                                            <>
+                                                <b>Product: </b>
+                                                {`${reduxCartProduct.product.title}`}
+                                            </>
+                                        </ProductName>
+                                        <ProductId>
+                                            <>
+                                                <b>ID: </b>
+                                                {`${reduxCartProduct.product._id}`}
+                                            </>
+                                        </ProductId>
+                                        <ProductColorWrapper>
+                                            <>
+                                                <b>color: </b>
+                                                <ProductColor
+                                                    color={
+                                                        reduxCartProduct.color
+                                                    }
+                                                />
+                                            </>
+                                        </ProductColorWrapper>
+                                        <ProductSize>
+                                            <>
+                                                <b>Size: </b>
+                                                {`${reduxCartProduct.size}`}
+                                            </>
+                                        </ProductSize>
+                                    </Details>
+                                </ProductDetail>
+                                <PriceDetail>
+                                    <ProductAmountContainer>
+                                        <FaPlusCircle />
+                                        <ProductAmount>
+                                            {reduxCartProduct.productQuantity}
+                                        </ProductAmount>
+                                        <FaMinusCircle />
+                                    </ProductAmountContainer>
+                                    {/* the total price of each product = price for each * quantity for each  */}
+                                    <ProductPrice>
+                                        $
+                                        {reduxCartProduct.product.price *
+                                            reduxCartProduct.productQuantity}
+                                    </ProductPrice>
+                                </PriceDetail>
+                            </Product>
+                        ))}
                     </Info>
                     <Summary>
                         <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                         <SummaryItem>
                             <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
+                            <SummaryItemPrice>
+                                $ {cartRedux.totalPrice}
+                            </SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>
@@ -89,9 +143,28 @@ const Cart: FC = () => {
                         </SummaryItem>
                         <SummaryItem type="total">
                             <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
+                            <SummaryItemPrice>
+                                $ {cartRedux.totalPrice}
+                            </SummaryItemPrice>
                         </SummaryItem>
-                        <Button>CHECKOUT NOW</Button>
+                        <StripeCheckout
+                            token={onTokenStripe}
+                            stripeKey={STRIPE_PUBLIC_KEY}
+                            image="https://avatars.githubusercontent.com/u/1486366?v=4"
+                            name="E Shop - By Khaled"
+                            description={`Your total is $${cartRedux.totalPrice}`}
+                            amount={cartRedux.totalPrice * 100}
+                            // *100 to convert from cents to dollars as the by default stripe uses cents
+                            billingAddress
+                            shippingAddress
+                            allowRememberMe
+                            ComponentClass={"as"}
+                            currency="CAD"
+                            panelLabel="Pay Now"
+                            Label="test label"
+                        >
+                            <Button>CHECKOUT NOW</Button>
+                        </StripeCheckout>
                     </Summary>
                 </Bottom>
             </Wrapper>
@@ -109,6 +182,25 @@ interface IStyledCompPropsTypes {
 const Container = styled.div`
     padding: 30px 0px;
     background-color: white;
+`;
+
+const ProductColorWrapper = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const ProductColor = styled.div<IStyledCompPropsTypes>`
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+
+    /* border-style: solid; */
+    box-shadow: 0 1.5px 1.5px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-width: 1.7px;
+    background-color: ${(props) => props.color};
+    margin: 0px 5px;
 `;
 
 const Wrapper = styled.div`
@@ -160,6 +252,8 @@ const Info = styled.div`
 const Product = styled.div`
     display: flex;
     justify-content: space-between;
+    margin: 20px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     ${mobile({ flexDirection: "column" })}
 `;
 
@@ -182,13 +276,6 @@ const Details = styled.div`
 const ProductName = styled.span``;
 
 const ProductId = styled.span``;
-
-const ProductColor = styled.div<IStyledCompPropsTypes>`
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: ${(props) => props.bgColor};
-`;
 
 const ProductSize = styled.span``;
 
@@ -225,8 +312,8 @@ const Hr = styled.hr`
 `;
 
 const Summary = styled.div`
-    flex: 1;
     border: 0.5px solid lightgray;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
     padding: 20px;
     height: 50vh;
