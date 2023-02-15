@@ -13,7 +13,7 @@ const Topbar: FC = () => {
                 </div>
                 <RightSection>
                     <IconWrapper>
-                        <ExitToAppIcon />
+                        <ExitToAppIcon style={{fontSize: "30px", marginTop: "4px"}}/>
                     </IconWrapper>
 
                     <AdminAvatar src={admin} alt="admin avatar"/>
@@ -62,7 +62,7 @@ const IconWrapper = styled.div`
 `;
 
 const AdminAvatar = styled.img`
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 `;
