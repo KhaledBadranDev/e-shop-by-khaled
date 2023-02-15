@@ -74,7 +74,7 @@ const Users: FC = () => {
                 // to override the default render for this specific column
                 return (
                     <>
-                        <Link to={`/user/${params.row.id}`}>
+                        <Link to={`/users/${params.row.id}`}>
                             <EditIcon
                                 style={{ color: "#0d6efd", marginRight: "5px" }}
                             >
@@ -114,7 +114,7 @@ const Users: FC = () => {
                     />
                     Delete Selected
                 </Button>
-                <Link to={"/newuser"}>
+                <Link to={"/users/newuser"}>
                     <Button
                         variant="outlined"
                         style={{ width: "200px", paddingRight: "78px" }}

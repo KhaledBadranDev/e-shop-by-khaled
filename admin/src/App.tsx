@@ -52,14 +52,14 @@ const App: FC = () => {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/users" element={<Users />} />
-                        <Route path="/user/:userId" element={<User />} />
-                        <Route path="/newuser" element={<NewUser />} />
+                        <Route path="/users/:userId" element={<User />} />
+                        <Route path="/users/newuser" element={<NewUser />} />
                         <Route path="/products" element={<Products />} />
                         <Route
-                            path="/product/:productId"
+                            path="/products/:productId"
                             element={<Product />}
                         />
-                        <Route path="/newproduct" element={<NewProduct />} />
+                        <Route path="/products/newproduct" element={<NewProduct />} />
                     </Routes>
                 )}
                 {console.log("currentAdminRedux:", currentAdminRedux)}

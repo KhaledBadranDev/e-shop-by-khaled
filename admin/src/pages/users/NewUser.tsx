@@ -47,14 +47,14 @@ const NewUser: FC = () => {
                             id="male"
                             value="male"
                         />
-                        <NewUserGenderLabel for="male">Male</NewUserGenderLabel>
+                        <NewUserGenderLabel htmlFor="male">Male</NewUserGenderLabel>
                         <NewUserGenderInput
                             type="radio"
                             name="gender"
                             id="female"
                             value="female"
                         />
-                        <NewUserGenderLabel for="female">
+                        <NewUserGenderLabel htmlFor="female">
                             Female
                         </NewUserGenderLabel>
                         <NewUserGenderInput
@@ -63,7 +63,7 @@ const NewUser: FC = () => {
                             id="other"
                             value="other"
                         />
-                        <NewUserGenderLabel for="other">
+                        <NewUserGenderLabel htmlFor="other">
                             Other
                         </NewUserGenderLabel>
                     </div>

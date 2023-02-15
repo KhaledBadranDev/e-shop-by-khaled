@@ -113,7 +113,7 @@ const Products: FC = () => {
                 // to override the default render for this specific column
                 return (
                     <>
-                        <Link to={`/product/${params.row._id}`}>
+                        <Link to={`/products/${params.row._id}`}>
                             <EditIcon
                                 style={{ color: "#0d6efd", marginRight: "5px" }}
                             >
@@ -159,7 +159,7 @@ const Products: FC = () => {
                     />
                     Delete Selected
                 </Button>
-                <Link to={"/newproduct"}>
+                <Link to={"/products/newproduct"}>
                     <Button
                         variant="outlined"
                         style={{ width: "200px", paddingRight: "47px" }}
