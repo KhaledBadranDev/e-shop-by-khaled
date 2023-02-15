@@ -28,7 +28,7 @@ const App: FC = () => {
 
     return (
         <RouterDom>
-            <Topbar />
+            {currentAdminRedux && <Topbar />}
             <Container>
                 {/* hide the sidebar if the admin is not signed in */}
                 {currentAdminRedux && <Sidebar />}
@@ -62,7 +62,6 @@ const App: FC = () => {
                         <Route path="/products/newproduct" element={<NewProduct />} />
                     </Routes>
                 )}
-                {console.log("currentAdminRedux:", currentAdminRedux)}
             </Container>
         </RouterDom>
     );

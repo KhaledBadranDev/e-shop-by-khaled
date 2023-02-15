@@ -1,6 +1,8 @@
 import { NotificationsNone, Settings } from "@material-ui/icons";
 import { FC } from "react";
 import styled from "styled-components";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import admin from "../assets/admin.png";
 
 const Topbar: FC = () => {
     return (
@@ -11,17 +13,10 @@ const Topbar: FC = () => {
                 </div>
                 <RightSection>
                     <IconWrapper>
-                        <NotificationsNone />
-                        <IconBadge>2</IconBadge>
+                        <ExitToAppIcon />
                     </IconWrapper>
 
-                    <IconWrapper>
-                        <Settings />
-                    </IconWrapper>
-                    <AdminAvatar
-                        src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                        alt="admin avatar"
-                    />
+                    <AdminAvatar src={admin} alt="admin avatar"/>
                 </RightSection>
             </Wrapper>
         </Container>
@@ -33,7 +28,7 @@ export default Topbar;
 const Container = styled.div`
     width: 100%;
     height: 50px;
-    background-color: #0A1E33;
+    background-color: #0a1e33;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -50,7 +45,7 @@ const Wrapper = styled.div`
 const Logo = styled.div`
     font-weight: bold;
     font-size: 30px;
-    color: #F0F0FF;
+    color: #cfd4d8;
     cursor: pointer;
 `;
 
@@ -63,27 +58,11 @@ const IconWrapper = styled.div`
     position: relative;
     cursor: pointer;
     margin-right: 10px;
-    color: #555;
-`;
-
-const IconBadge = styled.span`
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    top: -5px;
-    right: 0px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
+    color: #cfd4d8;
 `;
 
 const AdminAvatar = styled.img`
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    cursor: pointer;
 `;
