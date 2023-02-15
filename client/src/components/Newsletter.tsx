@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import {BiMailSend} from  "react-icons/bi";
-import { mobile } from "../util/styleResponsive";
+import { mobile } from "../utils/styleResponsive";
 
 
 const Newsletter: FC = () => {
