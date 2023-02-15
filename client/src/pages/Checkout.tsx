@@ -2,6 +2,8 @@
 import React, { FC } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
+const stripeKey = "pk_test_51MUjlsKYZ8D56wK7G1saa66HUyyS6Lxvyjs7s9XpuxksoLP0rnvWSUorCSRu084Vxu6FV59uz4WuFDAss2dLpTPg00yKtvY5Tg"
+
 const Checkout: FC = () => {
     const onToken = (token: any = null) => {
         console.log(token);
@@ -15,7 +17,11 @@ const Checkout: FC = () => {
         // });
     };
     return (
-        <StripeCheckout>
+        <StripeCheckout
+        
+        token={onToken}
+        stripeKey= {stripeKey}
+        >
             <button style={{ margin: "40px" }}>checkout</button>
         </StripeCheckout>
     );
