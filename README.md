@@ -173,8 +173,7 @@ to install jsonwebtoken to secure the API:<br />
 
 to install cors middleware to avoid having cors bugs:<br />
 
--   `npm install jsonwebtoken`
--   `npm install --save-dev @types/jsonwebtoken`
+-   `npm install cors`
 
 to install uuid to generate unique ids for stripe payments:<br />
 
